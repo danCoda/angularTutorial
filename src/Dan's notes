@@ -1,0 +1,77 @@
+Lesson 1. 
+
+What did we learn?
+* We learned how to create a new Angular app (create initila application structure using Angular CLI). 
+* We learned how to start a web server with Angular, so that you don't have to save and refresh; it's done automatically. 
+* We learned how to define bindings - defined in a class, and interpolated via {{}}.
+
+-----------------------
+LESSON 2.
+
+Create new component for displaying hero information, and place this component in the application shell... and 2 way binding.
+
+* Created a new component via Angular CLI.
+* Added a property to new component, and added it to the shell template... and displayed it.
+* Created a hero Interface, imported this to a component, initialised a hero, and viewed this new hero.
+* Created two-way binding using [(ngModel)].
+* Learned that ngModel isn't available by default; belongs to FormsModule which must be imported (opted-in).
+* Imported module FormsModule in the top-level class (module) (appModule). import { FormsModule } from '@angular/forms'... and added it to the imports array.
+
+-----------------------
+LESSON 3.
+
+Display list of heroes, allow selection of hero and display hero details.
+
+* Created mock heroes (should really come from some server), imported the file that contains mock heroes, and *ngFor looped to show them all.
+* Created private CSS styling for this component.
+* Used Angular's event binding syntax for the click "(click)".
+* Used *ngIf to conditionally include or exclude a HTML block.
+* Used class bidning to conditionally add CSS. 
+[class.selected]="hero === selectedHero" (add the class "selected" if hero === selectedHero).
+
+-----------------------
+LESSON 4.
+
+We want to split up our display; REFACTOR; large components into smaller reusable sub-components. We'll create HeroDetailComponent (child) to show hero details, and this component will be under HeroesComponent (parent).
+
+* Binded the parent heroesComponent's selectedHero with child heroDetail's hero, using the @Input() property.
+* Displayed heroDetail component, and showed the selected hero using Angular property binding (one way data binding). 
+<app-hero-detail [hero]="selectedHero"></app-hero-detail> will map child app-hero-detail's hero property to parent's selectedHero property.
+
+-----------------------
+LESSON 5.
+
+Components should be focused on presenting data only, and delegate data access to a service. Services share information among classess that don't know each other. We'll use a service to send a message, and a component to display the message. 
+
+* Created a service via Angular CLI, and learned that is provides an injectable service (and also can have its own injected dependencies) wih the @Injectable() decorated (also means that it participates in the "dependency injection system").
+* Made the service available to the "dependency injection system" by registering a "provider". Providers help create or deliver a service. You register a provider with an "injector", which is an object that chooses the provider. 
+* To use a Service, it must be registered to a Provider via an Injector. 
+* By default, the Angular CLI commmand registers the service to a provider wih the "root injector". When the service is proivded at the root level, the service becomes a single, shared instance, and is injected into any class that asks for it. 
+
+Returning an "Observable"
+
+This is what you get when you're waiting on data (asynchronous data). I think it's similar to "await".
+
+*"Observable" is one of the classess in RxJS library. 
+
+* We learned how to deal with getting asynchronous data (using Observable and of from RxJS)... and "subscribe()" to a service.
+
+* We used a service within a service; injected a service into another, which is used in a component.
+
+*heroes component uses HeroService (and MessageService). HeroService uses MessageService. In HeroService, we getHeroes()... but also use MessageServices' add() (We use a service within a service).
+
+* .. MessageComponent uses messageService, and this service in this context is set to private because we will bind it. We add MessageComponent to the app's HTML.
+
+------- WHAT A CRAZY CHAPTER. --------------------
+
+* We created services, to separate data retrieval code from data displaying code. Components should focus on presenting data while services should focus on other things like getting data.
+
+* We created HeroService, and used it ("injected it") in heroesComponent to get data (via "getHeroes()"). This data was originally synchronous, but modified to allow asynchronous retrieval (via "Observable" and subscribing). 
+
+* We also wanted to show messages, so created a messagesComponent and messageService. MessageService is used (to add a message) when getting heroes, so it was injected into HeroService (privately, because other components can get messages via HeroService).
+
+* To display these messages, we used messageComponent. When messageComponent is initialised, a PUBLIC MessageService gets initialised (injected) in MessagesComponent. It is public so that we can use binding (to display). We finally add this component to the DOM.
+
+* (We also used messageService in the heroesComponent for when we select a hero.)
+
+* In the end, the data and methods in messageService was being used/shared by messageComponent (clear())and heroesComponent (add()).
