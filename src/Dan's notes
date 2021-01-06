@@ -79,6 +79,8 @@ This is what you get when you're waiting on data (asynchronous data). I think it
 -----------------------
 LESSON 6.
 
+This one was about routing. Navigating between different views and getting heroes selection info using services.
+
 * We added a module called "app-routing" for routing, configured the routes and initialised it... and changed our AppComponent template by removing redundant code (and adding for the route's new content via "<router-outlet></router-outlet>").
 
 * We added a link with attribute "routerLink" to navigate to a route.
@@ -88,3 +90,23 @@ LESSON 6.
 * We were able to get route information and (shared) data from a service via a route.
 
 * We added a "Go back" functionality.
+
+-----------------------
+LESSON 7.
+
+Communication with a remove server via HTTP, using Angular's HttpClient.
+
+* We enabled Http services using Angular's HttpClientModule... and retrieved data using Https.
+
+* We caught errors by piping the observable result from the http.get().
+
+* We "tapped" (tap()) into observable results to send a message.
+
+* http.get() (getHeroes), http.put() (updateHero), http.post() (addHero), http.delete() (deleteHero).
+
+* Learned about Angular's AsyncPipe, and the __$ convention (meaning that it's an observable). If it's an observable, can't *ngFor it. 
+<li *ngFor="let hero of heroes$ | async" >
+
+* Learned how to conserve HTTP requests using RxJS Chaining operators (debounceTime(), distinctUntilChanged(), switchMap()).
+
+------
