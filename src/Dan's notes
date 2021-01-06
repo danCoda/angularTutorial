@@ -75,3 +75,16 @@ This is what you get when you're waiting on data (asynchronous data). I think it
 * (We also used messageService in the heroesComponent for when we select a hero.)
 
 * In the end, the data and methods in messageService was being used/shared by messageComponent (clear())and heroesComponent (add()).
+
+-----------------------
+LESSON 6.
+
+* We added a module called "app-routing" for routing, configured the routes and initialised it... and changed our AppComponent template by removing redundant code (and adding for the route's new content via "<router-outlet></router-outlet>").
+
+* We added a link with attribute "routerLink" to navigate to a route.
+
+* We added more routes, including a default route and parameterised one.
+
+* We were able to get route information and (shared) data from a service via a route.
+
+* We added a "Go back" functionality.
